@@ -14,50 +14,29 @@ public class DriverClass {
         InputParser parser = new InputParser();
         MarsRover rover = parser.parseInputPosition(inputValue);
 
-        String[] listOfInstructions = {"L", "M", "R"};
+        String[] listOfInstructions = {"M", "M", "M"};
 
         for (String command : listOfInstructions) {
-
-
+            executeCommands(rover, command);
         }
+
+        System.out.println(" OUTPUT "+rover.toString());
     }
 
-    public MarsRover executeCommands(MarsRover marsRover, String command) {
+    public static void executeCommands(MarsRover marsRover, String command) {
+
+        String dir = marsRover.getCurrPosition().getCurrentDirection().getCurrDir();
 
         if (command.equals("M")) {
-            marsRover = executeMoveCommand(marsRover);
+            marsRover.move(dir);
 
         } else if (command.equals("L")) {
-            marsRover = executeLeftCommand(marsRover);
+            marsRover.turnLeft(dir);
 
         } else if (command.equals("R")) {
-            marsRover = executeRightCommand(marsRover);
+            marsRover.turnRight(dir);
         }
 
-        return marsRover;
-    }
-
-    private MarsRover executeMoveCommand(MarsRover marsRover) {
-
-        String direction = marsRover.getCurrentDirection().getCurrDir();
-
-        return marsRover;
-    }
-
-
-    private MarsRover executeLeftCommand(MarsRover marsRover) {
-
-        String direction = marsRover.getCurrentDirection().getCurrDir();
-
-        return marsRover;
-    }
-
-
-    private MarsRover executeRightCommand(MarsRover marsRover) {
-
-        String direction = marsRover.getCurrentDirection().getCurrDir();
-
-        return marsRover;
     }
 
 

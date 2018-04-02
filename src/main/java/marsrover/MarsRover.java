@@ -1,29 +1,83 @@
 package marsrover;
 
-import mars.Coordinates;
-import mars.Direction;
+import mars.Position;
+
+import java.util.HashMap;
 
 /*
 Model for Mars Rover
  */
 public class MarsRover {
 
-    Coordinates currenctCoordinates;
-    Direction currentDirection;
+    Position currPosition;
 
-    public Coordinates getCurrenctCoordinates() {
-        return currenctCoordinates;
+    public void move(String direction) {
+
+        if (direction.equals("N")) {
+            int yCor = currPosition.getCurrenctCoordinates().getYcor();
+            currPosition.getCurrenctCoordinates().setYcor(yCor + 1);
+
+        } else if (direction.equals("S")) {
+            int yCor = currPosition.getCurrenctCoordinates().getYcor();
+            currPosition.getCurrenctCoordinates().setYcor(yCor - 1);
+
+        } else if (direction.equals("E")) {
+            int xCor = currPosition.getCurrenctCoordinates().getXcor();
+            currPosition.getCurrenctCoordinates().setXcor(xCor + 1);
+
+        } else if (direction.equals("W")) {
+            int xCor = currPosition.getCurrenctCoordinates().getXcor();
+            currPosition.getCurrenctCoordinates().setXcor(xCor - 1);
+        }
+
     }
 
-    public void setCurrenctCoordinates(Coordinates currenctCoordinates) {
-        this.currenctCoordinates = currenctCoordinates;
+    public void turnLeft(String direction) {
+
+        HashMap<String, String> leftDirectionMap = initLeftDirections();
+        currPosition.getCurrentDirection().setCurrDir(leftDirectionMap.get(direction));
     }
 
-    public Direction getCurrentDirection() {
-        return currentDirection;
+    public void turnRight(String direction) {
+
+        HashMap<String, String> rightDirectionMap = initRightDirections();
+        currPosition.getCurrentDirection().setCurrDir(rightDirectionMap.get(direction));
     }
 
-    public void setCurrentDirection(Direction currentDirection) {
-        this.currentDirection = currentDirection;
+    public Position getCurrPosition() {
+        return currPosition;
     }
+
+    public void setCurrPosition(Position currPosition) {
+        this.currPosition = currPosition;
+    }
+
+    @Override
+    public String toString() {
+        return currPosition.getCurrenctCoordinates().getXcor().toString() + " " + currPosition.getCurrenctCoordinates().getYcor().toString() + " " + currPosition.getCurrentDirection().getCurrDir();
+    }
+
+    private HashMap<String, String> initLeftDirections() {
+
+        HashMap<String, String> leftDirMap = new HashMap<>();
+        leftDirMap.put("E", "N");
+        leftDirMap.put("N", "W");
+        leftDirMap.put("W", "S");
+        leftDirMap.put("S", "E");
+
+        return leftDirMap;
+    }
+
+    private HashMap<String, String> initRightDirections() {
+
+        HashMap<String, String> rightDirMap = new HashMap<>();
+        rightDirMap.put("E", "S");
+        rightDirMap.put("N", "E");
+        rightDirMap.put("W", "N");
+        rightDirMap.put("S", "W");
+
+        return rightDirMap;
+    }
+
+
 }
